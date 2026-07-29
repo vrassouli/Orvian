@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Core/Orvian.Core.csproj" />
+  </ItemGroup>
+</Project>
