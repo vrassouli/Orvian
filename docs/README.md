@@ -10,10 +10,11 @@ This directory is the authoritative product and engineering specification for Or
 4. `product/mvp-scope.md`
 5. `architecture/overview.md`
 6. `architecture/project-boundaries.md`
-7. The task-specific architecture, security, UX, and SDK documents
-8. `development/agent-workflow.md`
-9. `development/definition-of-done.md`
-10. The relevant sprint backlog and ADRs
+7. `ux/ui-ux-architecture.md` for every shell, navigation, page, plugin UI, responsive, or presentation task
+8. The task-specific architecture, security, UX, and SDK documents
+9. `development/agent-workflow.md`
+10. `development/definition-of-done.md`
+11. The relevant sprint backlog and ADRs
 
 ## Authority and conflict resolution
 
@@ -35,7 +36,7 @@ Do not silently resolve a conflict. Record it in the PR and propose an ADR or do
 - `product/`: mission, users, requirements, scope, and user journeys.
 - `architecture/`: system structure and runtime behavior.
 - `security/`: threat model and mandatory security policies.
-- `ux/`: application behavior visible to users.
+- `ux/`: application behavior visible to users, including the authoritative cross-platform Settings-style UI architecture.
 - `sdk/`: plugin authoring contracts and conventions.
 - `development/`: contributor and agent execution rules.
 - `adr/`: accepted architectural decisions.
@@ -53,4 +54,4 @@ A task is ready for autonomous implementation only when it provides:
 - Security and compatibility considerations.
 - Expected files or project boundaries, when known.
 
-An agent must not invent missing product behavior that materially affects security, compatibility, data persistence, or public plugin contracts.
+An agent must not invent missing product behavior that materially affects security, compatibility, data persistence, public plugin contracts, or the cross-platform information architecture.
