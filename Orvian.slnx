@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Orvian.Core/Orvian.Core.csproj" />
+    <Project Path="src/Orvian.Plugin.Abstractions/Orvian.Plugin.Abstractions.csproj" />
+    <Project Path="src/Orvian.Auditing/Orvian.Auditing.csproj" />
+    <Project Path="src/Orvian.Discovery/Orvian.Discovery.csproj" />
+    <Project Path="src/Orvian.Security/Orvian.Security.csproj" />
+    <Project Path="src/Orvian.Ssh/Orvian.Ssh.csproj" />
+  </Folder>
+  <Folder Name="/plugins/">
+    <Project Path="plugins/Orvian.Plugins.Sample/Orvian.Plugins.Sample.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Orvian.Core.Tests/Orvian.Core.Tests.csproj" />
+  </Folder>
+</Solution>
