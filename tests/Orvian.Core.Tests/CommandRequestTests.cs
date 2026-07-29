@@ -1,4 +1,5 @@
 using Orvian.Core.Commands;
+using Xunit;
 
 namespace Orvian.Core.Tests;
 
