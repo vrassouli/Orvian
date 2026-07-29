@@ -2,6 +2,21 @@
 
 This file is the milestone summary. Executable acceptance criteria live in `docs/backlog/` and product boundaries live in `docs/product/mvp-scope.md`.
 
+## Platform delivery order
+
+Orvian will be delivered in this order:
+
+1. macOS
+2. Windows
+3. Linux
+4. Mobile
+
+macOS is the first implementation and validation platform. Cross-platform boundaries must still be preserved from the beginning so later Windows, Linux, and mobile presentation work does not require rewriting core behavior.
+
+During development, GitHub Actions may publish unsigned macOS artifacts for internal testing. Paid Apple Developer Program membership, Developer ID signing, notarization, and production DMG release automation are deferred until the application is functionally complete and ready for public beta or stable distribution.
+
+Distribution policy: `docs/development/macos-distribution.md`.
+
 ## Sprint 0 — Executable Foundation
 
 Goal: prove the complete architecture with a runnable Avalonia shell, dynamically loaded sample plugin, fake transport, controlled command pipeline, in-memory audit, and architecture tests.
@@ -56,6 +71,22 @@ Detailed plan: `docs/backlog/sprint-0.md`.
 - Package Information (read-only)
 
 Detailed Sprint 1–3 plan: `docs/backlog/sprints-1-to-3.md`.
+
+## Release-readiness milestone — macOS public distribution
+
+This milestone begins only after the application is functionally complete enough for public beta or stable distribution.
+
+- Apple Developer Program enrollment
+- Developer ID Application certificate
+- Hardened Runtime and entitlement review
+- GitHub Actions signing-secret setup
+- Code signing and nested-component verification
+- Apple notarization and stapling
+- Signed DMG generation
+- Checksums and GitHub Release publication
+- Clean-machine installation validation
+
+Until this milestone is explicitly activated, ordinary CI must not depend on paid Apple services or release credentials.
 
 ## Post-MVP directions
 
