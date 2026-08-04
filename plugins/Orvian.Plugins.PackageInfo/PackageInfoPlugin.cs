@@ -10,7 +10,7 @@ public sealed class PackageInfoPlugin : IOrvianPlugin
         "orvian.package-info",
         "Package Information",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Inspect bounded installed-package information.",
         new Version(0, 1, 0),
         [

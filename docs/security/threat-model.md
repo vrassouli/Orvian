@@ -13,8 +13,8 @@
 
 ## Trust boundaries
 
-1. User and Orvian UI.
-2. Orvian core and installed plugin code.
+1. User and Remotune UI.
+2. Remotune core and installed plugin code.
 3. Core and operating-system secret store.
 4. Core and local SQLite/filesystem.
 5. Core SSH transport and remote host/network.
@@ -109,7 +109,7 @@ Mitigations within scope:
 - Explicit installation in controlled directories.
 - Manifest validation and compatibility checks.
 - No direct core secrets/SSH/database APIs.
-- Permissions and audit for Orvian-mediated operations.
+- Permissions and audit for Remotune-mediated operations.
 - Clear publisher/version visibility.
 - Quarantine malformed or conflicting plugins.
 

@@ -2,7 +2,7 @@
   "id": "orvian.sample",
   "name": "Sample Plugin",
   "description": "Validates the initial plugin registration contracts.",
-  "publisher": "Orvian",
+  "publisher": "Remotune",
   "version": "0.1.0",
   "orvianApiVersion": "0.1.0",
   "entryAssembly": "Orvian.Plugins.Sample.dll",

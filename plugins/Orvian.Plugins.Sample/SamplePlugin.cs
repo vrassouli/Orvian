@@ -9,7 +9,7 @@ public sealed class SamplePlugin : IOrvianPlugin
         Id: "orvian.sample",
         Name: "Sample Plugin",
         Version: new Version(0, 1, 0),
-        Publisher: "Orvian",
+        Publisher: "Remotune",
         Description: "Validates the initial plugin registration contracts.",
         OrvianApiVersion: new Version(0, 1, 0),
         Permissions:
@@ -34,7 +34,7 @@ public sealed class SamplePlugin : IOrvianPlugin
 
 public sealed class SamplePageViewModel
 {
-    public string Message => "The Orvian plugin architecture is active.";
+    public string Message => "The Remotune plugin architecture is active.";
 }
 
 public sealed class SampleSystemProvider : IReadOnlyFeatureProvider

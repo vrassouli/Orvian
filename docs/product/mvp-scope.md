@@ -2,7 +2,7 @@
 
 ## Objective
 
-Deliver a trustworthy desktop application that proves Orvian's complete vertical architecture on real SSH-managed systems: local host inventory, verified connection, discovery, capability-based UI, plugin-provided features, structured execution, privilege escalation, and redacted audit history.
+Deliver a trustworthy desktop application that proves Remotune's complete vertical architecture on real SSH-managed systems: local host inventory, verified connection, discovery, capability-based UI, plugin-provided features, structured execution, privilege escalation, and redacted audit history.
 
 ## Included
 
@@ -115,7 +115,7 @@ A supported OS family does not guarantee every feature. Availability is decided 
 
 On a clean workstation, a user must be able to:
 
-1. Launch Orvian and create a host profile without storing a plaintext secret.
+1. Launch Remotune and create a host profile without storing a plaintext secret.
 2. Connect to a Linux host and explicitly trust its first-seen host key.
 3. Authenticate and complete partial or full discovery.
 4. See an overview and only compatible feature pages.

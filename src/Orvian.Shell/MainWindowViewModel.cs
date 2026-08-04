@@ -131,7 +131,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
     public event Action<ApplicationSettings>? SettingsChanged;
 
-    public string ProductName => "Orvian";
+    public string ProductName => "Remotune";
 
     public bool CanRememberCredentials => _canRememberCredentials;
 
@@ -545,7 +545,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
                 "The local host inventory could not be loaded.",
                 ImmutableDictionary<string, string>.Empty);
             SafeErrorMessage =
-                "Orvian could not load the local host inventory. Restart the application or inspect diagnostics." +
+                "Remotune could not load the local host inventory. Restart the application or inspect diagnostics." +
                 FormatCorrelation(correlationId);
             ContentState = ShellContentState.Error;
         }
@@ -710,7 +710,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     public void ReportInventoryInitializationFailure(Guid? correlationId = null)
     {
         SafeErrorMessage =
-            "Orvian could not initialize local storage. Restart the application or inspect diagnostics." +
+            "Remotune could not initialize local storage. Restart the application or inspect diagnostics." +
             FormatCorrelation(correlationId);
         ContentState = ShellContentState.Error;
     }

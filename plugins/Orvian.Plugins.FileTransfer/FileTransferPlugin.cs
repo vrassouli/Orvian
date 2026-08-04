@@ -8,7 +8,7 @@ public sealed class FileTransferPlugin : IOrvianPlugin
         "orvian.file-transfer",
         "File Transfer",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Browse and transfer files between this computer and a selected SSH host.",
         new Version(0, 1, 0),
         [

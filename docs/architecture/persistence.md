@@ -4,6 +4,10 @@
 
 SQLite is the initial local relational store. `Orvian.Persistence` owns database access, schema migrations, transactions, and repository implementations. Domain and application projects define repository contracts and persistence-agnostic models.
 
+Remotune continues to use the legacy `Orvian` local-data directory and database
+filename so an application update does not strand existing profiles, audit history,
+settings, trusted host keys, or plugin state.
+
 The database never stores plaintext passwords, private-key contents, key passphrases, or privilege passwords. It stores opaque references to `ISecretStore` entries.
 
 ## Data groups

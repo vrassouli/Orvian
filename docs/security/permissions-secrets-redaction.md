@@ -60,11 +60,11 @@ reported as complete success.
 - Linux Secret Service-compatible keyring through the trusted system
   `secret-tool` executable.
 
-When no secure backend is available, Orvian must not silently fall back to plaintext storage. It may offer session-only use with a clear warning.
+When no secure backend is available, Remotune must not silently fall back to plaintext storage. It may offer session-only use with a clear warning.
 
 The composition root selects only the native backend for the current operating
 system. A missing Linux `secret-tool` produces the explicit unavailable store;
-Orvian never searches an untrusted `PATH` entry or creates a file fallback.
+Remotune never searches an untrusted `PATH` entry or creates a file fallback.
 Linux secrets are sent through redirected stdin until EOF and retrieved from
 bounded redirected stdout using structured process arguments and no shell.
 Windows credential blobs are copied through bounded unmanaged memory. Owned

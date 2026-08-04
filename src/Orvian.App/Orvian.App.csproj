@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>Orvian</AssemblyName>
+    <AssemblyName>Remotune</AssemblyName>
+    <Product>Remotune</Product>
     <RootNamespace>Orvian.App</RootNamespace>
     <VersionPrefix>0.1.0</VersionPrefix>
     <PublishSingleFile>true</PublishSingleFile>

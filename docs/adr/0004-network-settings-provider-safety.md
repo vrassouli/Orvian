@@ -9,7 +9,7 @@ Accepted by explicit product-owner request on 2026-08-02.
 Changing an address, prefix, gateway, or resolver can immediately sever the SSH
 connection used to perform and audit the operation. Provider behavior also differs
 between NetworkManager and Netplan/systemd-networkd. Treating configuration values
-as shell text would violate Orvian's structured-command security boundary.
+as shell text would violate Remotune's structured-command security boundary.
 
 ## Decision
 
@@ -26,7 +26,7 @@ Promote Network Settings into the first-party feature set. The initial plugin:
 - supports explicitly confirmed Netplan set/generate/apply sequences, accepting that
   applying a new address can terminate the current SSH connection.
 
-The user explicitly owns updating the saved Orvian host endpoint after an address
+The user explicitly owns updating the saved Remotune host endpoint after an address
 change. A disconnect during `netplan apply` is reported honestly; it is not treated
 as verified success merely because loss of connectivity was expected.
 

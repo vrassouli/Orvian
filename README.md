@@ -1,6 +1,6 @@
-# Orvian
+# Remotune
 
-Orvian is a cross-platform, agentless infrastructure administration desktop
+Remotune is a cross-platform, agentless infrastructure administration desktop
 application. It connects to managed hosts over SSH and exposes capability-based,
 provider-backed workflows instead of a general-purpose terminal.
 
@@ -64,7 +64,8 @@ dotnet run --project src/Orvian.App/Orvian.App.csproj
 
 First-party plugins are built and copied into the application output
 automatically. Local application state is stored beneath the operating system's
-`LocalApplicationData/Orvian` directory; credentials are stored separately in
+the legacy `LocalApplicationData/Orvian` directory so upgrades preserve existing
+data; credentials are stored separately in
 the platform's native secure store when available.
 
 ## macOS preview packaging

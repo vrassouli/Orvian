@@ -11,7 +11,7 @@ public sealed class NetworkSettingsPlugin : IOrvianPlugin
 {
     public PluginManifest Manifest { get; } = new(
         "orvian.network-settings", "Network Settings", new Version(0, 1, 0),
-        "Orvian", "Inspect and update IPv4 and IPv6 connection settings.",
+        "Remotune", "Inspect and update IPv4 and IPv6 connection settings.",
         new Version(0, 1, 0),
         [PluginPermissions.UiNavigationContribute, PluginPermissions.CommandReadExecute,
             PluginPermissions.CommandMutateExecute,
@@ -40,7 +40,7 @@ public sealed class NetplanMutationProvider : IMultiCommandMutationFeatureProvid
     public string ProviderId => "network.netplan";
     public int Priority => 100;
     public string Title => "Apply Netplan settings";
-    public string Purpose => "Persist and apply IPv4/IPv6 settings. The SSH session may disconnect; update the Orvian host endpoint before reconnecting if its address changes.";
+    public string Purpose => "Persist and apply IPv4/IPv6 settings. The SSH session may disconnect; update the Remotune host endpoint before reconnecting if its address changes.";
     public string ParameterName => "interface";
     public string ParameterLabel => "Network interface";
     public IReadOnlyList<PluginMutationParameter> Parameters =>

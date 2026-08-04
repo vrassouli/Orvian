@@ -8,10 +8,10 @@ fi
 
 publish_directory=$1
 output_directory=$2
-bundle_directory="$output_directory/Orvian.app"
+bundle_directory="$output_directory/Remotune.app"
 
-if [ ! -x "$publish_directory/Orvian" ]; then
-  echo "Published Orvian executable was not found." >&2
+if [ ! -x "$publish_directory/Remotune" ]; then
+  echo "Published Remotune executable was not found." >&2
   exit 1
 fi
 
@@ -24,7 +24,7 @@ mkdir -p "$bundle_directory/Contents/MacOS"
 mkdir -p "$bundle_directory/Contents/Resources"
 cp "eng/macos/Info.plist" "$bundle_directory/Contents/Info.plist"
 ditto "$publish_directory" "$bundle_directory/Contents/MacOS"
-chmod 755 "$bundle_directory/Contents/MacOS/Orvian"
+chmod 755 "$bundle_directory/Contents/MacOS/Remotune"
 codesign --force --deep --sign - "$bundle_directory"
 codesign --verify --deep --strict "$bundle_directory"
 

@@ -461,7 +461,7 @@ internal sealed class FileTransferView : UserControl
             return;
         }
         if (item.Kind != RemoteFileKind.File) return;
-        var root = Path.Combine(Path.GetTempPath(), "Orvian", "opened-files", Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "Remotune", "opened-files", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
         await DownloadAsync([item], root);
         var path = Path.Combine(root, item.Name);
@@ -542,7 +542,7 @@ internal sealed class FileTransferView : UserControl
                 await RefreshRemoteAsync();
                 break;
             case RemoteClipboard remote:
-                var temp = Path.Combine(Path.GetTempPath(), "Orvian", "copy", Guid.NewGuid().ToString("N"));
+                var temp = Path.Combine(Path.GetTempPath(), "Remotune", "copy", Guid.NewGuid().ToString("N"));
                 Directory.CreateDirectory(temp);
                 await DownloadAsync(remote.Items, temp);
                 await UploadAsync(Directory.EnumerateFileSystemEntries(temp)

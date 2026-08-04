@@ -10,7 +10,7 @@ public sealed class HostOverviewPlugin : IOrvianPlugin
         "orvian.host-overview",
         "Host Overview",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Present trusted local host identity, connection, and discovery context.",
         new Version(0, 1, 0),
         [

@@ -1055,7 +1055,7 @@ public sealed class MainWindowViewModelTests
         private PluginManagementItem _item = new(
             "orvian.test",
             "Test plugin",
-            "Orvian",
+            "Remotune",
             "0.1.0",
             "Active",
             true,

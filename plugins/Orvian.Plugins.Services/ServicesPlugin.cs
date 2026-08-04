@@ -9,7 +9,7 @@ public sealed class ServicesPlugin : IOrvianPlugin
         "orvian.services",
         "Services",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Inspect and manage remote system services.",
         new Version(0, 1, 0),
         [

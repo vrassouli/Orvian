@@ -4,7 +4,7 @@ This file is the milestone summary. Executable acceptance criteria live in `docs
 
 ## Platform delivery order
 
-Orvian will be delivered in this order:
+Remotune will be delivered in this order:
 
 1. macOS
 2. Windows

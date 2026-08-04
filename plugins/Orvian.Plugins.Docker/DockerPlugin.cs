@@ -10,7 +10,7 @@ public sealed class DockerPlugin : IOrvianPlugin
         "orvian.docker",
         "Docker",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Inspect and safely manage Docker images and containers.",
         new Version(0, 1, 0),
         [

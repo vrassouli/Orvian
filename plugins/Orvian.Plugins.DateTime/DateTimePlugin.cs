@@ -10,7 +10,7 @@ public sealed class DateTimePlugin : IOrvianPlugin
         "orvian.datetime",
         "Date & Time",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Inspect remote date, time, timezone, and synchronization state.",
         new Version(0, 1, 0),
         [

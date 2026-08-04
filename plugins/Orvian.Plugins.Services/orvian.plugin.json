@@ -2,7 +2,7 @@
   "id": "orvian.services",
   "name": "Services",
   "description": "Inspect and manage remote system services through capability-selected providers.",
-  "publisher": "Orvian",
+  "publisher": "Remotune",
   "version": "0.1.0",
   "orvianApiVersion": "0.1.0",
   "entryAssembly": "Orvian.Plugins.Services.dll",

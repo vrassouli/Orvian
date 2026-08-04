@@ -2,13 +2,13 @@
 
 ## Product experience
 
-Orvian is a system administration application, not an IDE, text editor, terminal multiplexer, or document workspace. Its interaction model should feel closer to macOS System Settings and Windows 11 Settings than to VS Code.
+Remotune is a system administration application, not an IDE, text editor, terminal multiplexer, or document workspace. Its interaction model should feel closer to macOS System Settings and Windows 11 Settings than to VS Code.
 
-The user should experience Orvian as a calm, structured control center for infrastructure. Technical detail remains available, but the default interface prioritizes understandable states, grouped settings, explicit actions, and predictable navigation.
+The user should experience Remotune as a calm, structured control center for infrastructure. Technical detail remains available, but the default interface prioritizes understandable states, grouped settings, explicit actions, and predictable navigation.
 
 ## Cross-platform identity
 
-Orvian must present one recognizable product identity on macOS, Windows, and Linux.
+Remotune must present one recognizable product identity on macOS, Windows, and Linux.
 
 The following remain consistent across desktop platforms:
 
@@ -83,7 +83,7 @@ Every nested page must provide:
 - A stable page title.
 - A clear host context.
 
-Hosts are not represented as document tabs. The sidebar remains the primary host switcher because Orvian must scale to many managed systems.
+Hosts are not represented as document tabs. The sidebar remains the primary host switcher because Remotune must scale to many managed systems.
 
 ## Host overview
 
@@ -147,7 +147,7 @@ Examples include:
   location is no longer available.
   A remote file opened locally becomes a watched working copy. When its timestamp or
   size changes, File Transfer offers the normal audited upload/overwrite confirmation
-  for the original host and remote directory. Leaving the page or closing Orvian asks
+  for the original host and remote directory. Leaving the page or closing Remotune asks
   whether to delete or keep downloaded working copies; cancelling keeps the user on
   the page or prevents window closure.
 
@@ -308,7 +308,7 @@ Business and infrastructure behavior must not live in view code.
 The intended long-term structure is:
 
 ```text
-Orvian application/core services
+Remotune application/core services
   -> Desktop presentation
   -> Future mobile presentation
   -> Future web presentation, if approved
@@ -320,7 +320,7 @@ Views must not call SSH transport, secret stores, or database implementations di
 
 ## Design system
 
-A shared Orvian design system must define:
+A shared Remotune design system must define:
 
 - Typography roles.
 - Spacing tokens.
@@ -360,4 +360,4 @@ A UX implementation is acceptable only when:
 - Privileged and destructive actions state their effect before execution.
 - Operation progress and partial failure are truthful.
 - Technical detail is available without overwhelming the default interface.
-- Plugin pages look and behave like Orvian rather than unrelated embedded applications.
+- Plugin pages look and behave like Remotune rather than unrelated embedded applications.

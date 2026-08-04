@@ -6,7 +6,7 @@ Accepted by explicit product-owner approval on 2026-08-03.
 
 ## Context
 
-Orvian needs a WinSCP-like dual-pane file manager. File transfer is a remote
+Remotune needs a WinSCP-like dual-pane file manager. File transfer is a remote
 operation but not a shell command. Giving a plugin an SSH.NET or SFTP session would
 violate the transport boundary, while representing byte transfer as a shell command
 would be inaccurate and could weaken argument and secret guarantees.
@@ -25,7 +25,7 @@ a completion update afterwards. Mutations fail closed when audit start persisten
 is unavailable. Audit details retain normalized paths and metadata, never file
 contents. Recursive operations do not follow symbolic links.
 
-Opening a remote file downloads it to an Orvian-owned temporary directory and asks
+Opening a remote file downloads it to a Remotune-owned temporary directory and asks
 the local operating system to open it with the registered application. Temporary
 files are removed on shutdown when possible.
 

@@ -71,7 +71,7 @@
 ### Plugin management
 
 - First-party and third-party plugins use the same lifecycle contracts.
-- Plugins have manifests with stable ID, semantic version, publisher, compatible Orvian version range, entry assembly, permissions, capabilities, and contributions.
+- Plugins have manifests with stable ID, semantic version, publisher, compatible Remotune version range, entry assembly, permissions, capabilities, and contributions.
 - Plugins can be discovered, validated, enabled, disabled, loaded, and unloaded when technically safe.
 - Invalid, incompatible, duplicate, or permission-escalating plugins are quarantined with an explanatory error.
 - The MVP loads plugins from a local application-controlled directory. Online registry and automatic update are later work.
@@ -143,4 +143,4 @@
 
 ## Release criteria for the first usable MVP
 
-The MVP is releasable when a user can install Orvian, create a host profile, securely verify and connect to a supported Linux host, complete discovery, view a host overview, inspect services and date/time through plugins, execute at least one safe privileged change with confirmation, and review the full redacted audit trail without any plugin obtaining direct SSH or secret access.
+The MVP is releasable when a user can install Remotune, create a host profile, securely verify and connect to a supported Linux host, complete discovery, view a host overview, inspect services and date/time through plugins, execute at least one safe privileged change with confirmation, and review the full redacted audit trail without any plugin obtaining direct SSH or secret access.

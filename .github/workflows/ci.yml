@@ -89,20 +89,20 @@ jobs:
           --runtime ${{ matrix.runtime }}
           --self-contained true
           --no-restore
-          --output artifacts/Orvian-${{ matrix.runtime }}
+          --output artifacts/Remotune-${{ matrix.runtime }}
 
       - name: Package preview
         run: |
           eng/package-macos.sh \
-            artifacts/Orvian-${{ matrix.runtime }} \
+            artifacts/Remotune-${{ matrix.runtime }} \
             artifacts/bundle-${{ matrix.runtime }}
-          ditto -c -k --keepParent
-          artifacts/bundle-${{ matrix.runtime }}/Orvian.app
-          artifacts/Orvian-0.1.0-${{ matrix.runtime }}-unsigned.zip
+          ditto -c -k --keepParent \
+          artifacts/bundle-${{ matrix.runtime }}/Remotune.app \
+          artifacts/Remotune-0.1.0-${{ matrix.runtime }}-unsigned.zip
 
       - name: Upload unsigned preview
         uses: actions/upload-artifact@v4
         with:
-          name: Orvian-0.1.0-${{ matrix.runtime }}-unsigned
-          path: artifacts/Orvian-0.1.0-${{ matrix.runtime }}-unsigned.zip
+          name: Remotune-0.1.0-${{ matrix.runtime }}-unsigned
+          path: artifacts/Remotune-0.1.0-${{ matrix.runtime }}-unsigned.zip
           if-no-files-found: error

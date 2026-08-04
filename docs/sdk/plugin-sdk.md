@@ -6,7 +6,7 @@ The SDK lets a plugin add infrastructure features without receiving SSH sessions
 
 ## Plugin entry point
 
-A plugin exposes one entry type implementing `IOrvianPlugin` with:
+A plugin exposes one entry type implementing the legacy-compatible `IOrvianPlugin` contract with:
 
 - Immutable manifest identity.
 - Synchronous registration of static contributions and service descriptors.
@@ -17,7 +17,9 @@ Registration must be deterministic and side-effect free. It may validate local m
 
 ## Manifest
 
-Recommended ID format: reverse-domain or project-owned dotted ID, for example `io.orvian.services` or `orvian.services` for official plugins.
+Recommended ID format: reverse-domain or project-owned dotted ID. Existing official
+plugins retain their `orvian.*` IDs because plugin identity is persistent and cannot
+be renamed safely in place. New third-party plugins should use a publisher-owned ID.
 
 Manifest fields:
 
@@ -239,11 +241,19 @@ Plugin public callbacks return structured result types or throw only for program
 
 ## Compatibility rules
 
-- Do not reference internal Orvian assemblies.
+- Do not reference internal Remotune assemblies (currently named `Orvian.*` for compatibility).
 - Use only documented public SDK packages.
 - Do not depend on concrete first-party plugins.
 - Avoid reflection into core internals.
 - Public serialized plugin data has an explicit schema version and migration path.
+
+## Rebrand compatibility
+
+Remotune is the product name. The `Orvian.*` assembly and namespace names,
+`IOrvianPlugin`, `orvian.plugin.json`, `orvianApiVersion`, and existing `orvian.*`
+plugin IDs are legacy public compatibility identifiers. They remain unchanged so
+existing plugins and persisted plugin state continue to work. Changing any of these
+requires a separately versioned SDK migration and compatibility plan.
 
 ## Minimum plugin tests
 

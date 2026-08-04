@@ -2,7 +2,7 @@
 
 ## System shape
 
-Orvian is a local-first modular desktop application. The executable hosts the shell and core platform services. Feature plugins are loaded into the application process after manifest and compatibility validation.
+Remotune is a local-first modular desktop application. The executable hosts the shell and core platform services. Feature plugins are loaded into the application process after manifest and compatibility validation.
 
 ```text
 Avalonia Shell
@@ -42,7 +42,7 @@ SSH.NET transport, SQLite repositories, platform secret stores, file-based plugi
 
 ### Plugins
 
-Feature behavior, provider implementations, output parsing, capability requirements, and UI contributions. Plugins depend only on published Orvian contracts and explicitly allowed UI abstractions.
+Feature behavior, provider implementations, output parsing, capability requirements, and UI contributions. Plugins depend only on published Remotune contracts and explicitly allowed UI abstractions.
 
 ## Dependency direction
 
@@ -64,7 +64,7 @@ The application composition root owns dependency injection and creates all infra
 - `HostIdentity`: verified remote key/fingerprint information associated with a profile.
 - `ConnectionId`: one connection lifecycle instance.
 - `DiscoverySnapshotId`: immutable result of one discovery run.
-- `PluginId`: globally stable reverse-domain or Orvian-defined identifier.
+- `PluginId`: globally stable reverse-domain or Remotune-defined identifier.
 - `OperationId`: one user/background intention, possibly containing several commands.
 - `CommandId`: one attempted remote command.
 - `AuditEventId`: persistence identity for an audit transition or record.

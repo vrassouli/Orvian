@@ -27,14 +27,14 @@ public sealed class PluginManifestValidator(Version supportedApiVersion)
 
         if (!Version.TryParse(manifest.OrvianApiVersion, out var apiVersion))
         {
-            diagnostics.Add(new("manifest.api_version_invalid", "Orvian API version is invalid."));
+            diagnostics.Add(new("manifest.api_version_invalid", "Remotune API version is invalid."));
         }
         else if (apiVersion.Major != supportedApiVersion.Major ||
                  apiVersion.Minor > supportedApiVersion.Minor)
         {
             diagnostics.Add(new(
                 "manifest.api_incompatible",
-                $"Plugin requires Orvian API {apiVersion}; supported API is {supportedApiVersion}."));
+                $"Plugin requires Remotune API {apiVersion}; supported API is {supportedApiVersion}."));
         }
 
         if (!string.IsNullOrWhiteSpace(manifest.EntryAssembly))

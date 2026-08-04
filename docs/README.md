@@ -1,6 +1,6 @@
-# Orvian Documentation Map
+# Remotune Documentation Map
 
-This directory is the authoritative product and engineering specification for Orvian. Agents and contributors must read the documents required by their task before changing code.
+This directory is the authoritative product and engineering specification for Remotune. Agents and contributors must read the documents required by their task before changing code.
 
 ## Reading order for every agent
 

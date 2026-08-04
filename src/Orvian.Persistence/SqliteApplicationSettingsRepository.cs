@@ -57,7 +57,7 @@ public sealed class SqliteApplicationSettingsRepository(OrvianDatabase database)
             return new(
                 ApplicationSettings.Default,
                 UsedDefaults: true,
-                "Some settings were written by a newer Orvian version. Conservative defaults are active and the newer records were preserved.");
+                "Some settings were written by a newer Remotune version. Conservative defaults are active and the newer records were preserved.");
         }
 
         try

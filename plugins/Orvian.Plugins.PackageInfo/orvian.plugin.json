@@ -2,7 +2,7 @@
   "id": "orvian.package-info",
   "name": "Package Information",
   "description": "Inspect bounded installed-package information through capability-selected providers.",
-  "publisher": "Orvian",
+  "publisher": "Remotune",
   "version": "0.1.0",
   "orvianApiVersion": "0.1.0",
   "entryAssembly": "Orvian.Plugins.PackageInfo.dll",

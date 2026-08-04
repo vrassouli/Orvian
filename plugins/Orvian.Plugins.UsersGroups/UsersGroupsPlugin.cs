@@ -10,7 +10,7 @@ public sealed class UsersGroupsPlugin : IOrvianPlugin
         "orvian.users-groups",
         "Users & Groups",
         new Version(0, 1, 0),
-        "Orvian",
+        "Remotune",
         "Inspect remote user and group identity metadata.",
         new Version(0, 1, 0),
         [

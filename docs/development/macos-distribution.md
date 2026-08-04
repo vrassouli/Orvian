@@ -2,7 +2,7 @@
 
 ## Decision
 
-Orvian's first supported desktop platform is macOS. Public Apple code signing and notarization are intentionally deferred until the application is functionally complete and ready for external distribution.
+Remotune's first supported desktop platform is macOS. Public Apple code signing and notarization are intentionally deferred until the application is functionally complete and ready for external distribution.
 
 The implementation order is:
 
@@ -26,10 +26,10 @@ During active development and internal validation:
 
 Recommended development artifacts:
 
-- `Orvian-<version>-macos-arm64.zip`
-- `Orvian-<version>-macos-x64.zip`, when Intel support is being tested
+- `Remotune-<version>-macos-arm64.zip`
+- `Remotune-<version>-macos-x64.zip`, when Intel support is being tested
 
-Current CI publishes self-contained, single-file, unsigned `Orvian.app` preview
+Current CI publishes self-contained, single-file, unsigned `Remotune.app` preview
 archives for `osx-arm64` and `osx-x64`. These bundles are publish smoke tests and
 internal test inputs. They receive only a local ad-hoc signature so the bundle
 structure can be validated; they are not Developer ID signed or notarized public
@@ -39,7 +39,7 @@ A DMG may be generated for layout testing, but an unsigned DMG is not a producti
 
 ## Paid Apple membership
 
-Developer ID certificates are not purchased individually. They are available through the paid Apple Developer Program membership. Membership, certificate provisioning, and notarization are postponed until Orvian is ready for public beta or stable distribution.
+Developer ID certificates are not purchased individually. They are available through the paid Apple Developer Program membership. Membership, certificate provisioning, and notarization are postponed until Remotune is ready for public beta or stable distribution.
 
 Do not add repository secrets or workflows that assume these credentials exist before that milestone.
 
@@ -88,7 +88,7 @@ After the release-readiness milestone, tag-triggered workflows may sign, notariz
 
 ## Packaging direction
 
-The initial public packaging target is a DMG containing `Orvian.app` and an Applications-folder shortcut. A PKG should be introduced only if Orvian later needs to install privileged helpers, daemons, launch agents, or files outside its application bundle.
+The initial public packaging target is a DMG containing `Remotune.app` and an Applications-folder shortcut. A PKG should be introduced only if Remotune later needs to install privileged helpers, daemons, launch agents, or files outside its application bundle.
 
 Separate ARM64 and x64 artifacts are preferred initially. A universal binary may be evaluated later after all native dependencies and update behavior are proven compatible.
 

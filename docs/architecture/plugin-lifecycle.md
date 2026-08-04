@@ -2,7 +2,7 @@
 
 ## Trust model
 
-MVP plugins execute in the Orvian process. They are trusted installed code, not securely sandboxed. The permission system controls access to Orvian services and documents intent, but cannot defend against deliberately malicious in-process code using the .NET runtime or operating-system APIs.
+MVP plugins execute in the Remotune process. They are trusted installed code, not securely sandboxed. The permission system controls access to Remotune services and documents intent, but cannot defend against deliberately malicious in-process code using the .NET runtime or operating-system APIs.
 
 Only application-controlled plugin directories are scanned. Installation must be explicit. Strong signing, process isolation, and marketplace trust are future work.
 
@@ -22,7 +22,7 @@ Plugin data and settings are stored outside the installation directory using a c
 - Stable plugin ID.
 - Display name, description, publisher, and semantic version.
 - Entry assembly and entry type.
-- Compatible Orvian API version range.
+- Compatible Remotune API version range, represented by the legacy `orvianApiVersion` manifest field for compatibility.
 - Declared permissions.
 - Required and optional capabilities.
 - Declared contributions and provider metadata when static discovery is useful.
@@ -52,7 +52,7 @@ Alternative states: `Disabled`, `Incompatible`, `Quarantined`, `Faulted`, `Resta
 2. Parse manifests without loading assemblies.
 3. Validate paths, IDs, versions, permissions, and dependencies.
 4. Resolve duplicates deterministically; duplicates are quarantined rather than silently overridden.
-5. Check Orvian API compatibility.
+5. Check Remotune API compatibility.
 6. Read persisted enabled state.
 7. Load enabled compatible assemblies through a plugin load context.
 8. Instantiate the declared plugin entry point.

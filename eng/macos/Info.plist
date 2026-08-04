@@ -6,15 +6,15 @@
   <key>CFBundleDevelopmentRegion</key>
   <string>en</string>
   <key>CFBundleDisplayName</key>
-  <string>Orvian</string>
+  <string>Remotune</string>
   <key>CFBundleExecutable</key>
-  <string>Orvian</string>
+  <string>Remotune</string>
   <key>CFBundleIdentifier</key>
   <string>io.orvian.desktop</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
-  <string>Orvian</string>
+  <string>Remotune</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>

@@ -2,7 +2,7 @@
   "id": "orvian.datetime",
   "name": "Date & Time",
   "description": "Inspect remote date, time, timezone, and synchronization state.",
-  "publisher": "Orvian",
+  "publisher": "Remotune",
   "version": "0.1.0",
   "orvianApiVersion": "0.1.0",
   "entryAssembly": "Orvian.Plugins.DateTime.dll",

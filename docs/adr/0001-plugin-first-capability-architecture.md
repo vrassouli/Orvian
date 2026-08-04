@@ -5,7 +5,7 @@
 
 ## Context
 
-Orvian must support heterogeneous operating systems and appliances without scattering distribution checks throughout the product or coupling the core to every feature.
+Remotune must support heterogeneous operating systems and appliances without scattering distribution checks throughout the product or coupling the core to every feature.
 
 ## Decision
 

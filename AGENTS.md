@@ -2,9 +2,9 @@
 
 ## Mission
 
-Build Orvian as a cross-platform, agentless infrastructure administration desktop application using .NET 10, Avalonia UI, MVVM, SSH.NET, SQLite, and a plugin-first capability/provider architecture.
+Build Remotune as a cross-platform, agentless infrastructure administration desktop application using .NET 10, Avalonia UI, MVVM, SSH.NET, SQLite, and a plugin-first capability/provider architecture.
 
-Orvian is not a generic SSH terminal. It provides safe, understandable, auditable administration workflows while preserving target-specific behavior behind providers.
+Remotune is not a generic SSH terminal. It provides safe, understandable, auditable administration workflows while preserving target-specific behavior behind providers.
 
 ## Required reading
 

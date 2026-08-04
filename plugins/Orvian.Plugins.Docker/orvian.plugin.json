@@ -2,7 +2,7 @@
   "id": "orvian.docker",
   "name": "Docker",
   "description": "Inspect and safely manage Docker images and containers.",
-  "publisher": "Orvian",
+  "publisher": "Remotune",
   "version": "0.1.0",
   "orvianApiVersion": "0.1.0",
   "entryAssembly": "Orvian.Plugins.Docker.dll",

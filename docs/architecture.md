@@ -2,7 +2,7 @@
 
 ## Product boundary
 
-Orvian is an agentless, cross-platform system administration platform. The desktop application connects to managed targets over SSH and composes capabilities through plugins.
+Remotune is an agentless, cross-platform system administration platform. The desktop application connects to managed targets over SSH and composes capabilities through plugins.
 
 ## Layering
 

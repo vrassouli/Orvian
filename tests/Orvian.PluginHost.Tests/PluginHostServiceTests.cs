@@ -133,7 +133,7 @@ public sealed class PluginHostServiceTests
         var item = Assert.Single(await host.GetPluginsAsync());
 
         Assert.Equal("Sample Plugin", item.Name);
-        Assert.Equal("Orvian", item.Publisher);
+        Assert.Equal("Remotune", item.Publisher);
         Assert.Equal("0.1.0", item.Version);
         Assert.Equal("Active", item.LifecycleState);
         Assert.True(item.IsEnabled);
@@ -465,7 +465,7 @@ public sealed class PluginHostServiceTests
                 Id = "orvian.sample",
                 Name = "Sample Plugin",
                 Description = "Test sample.",
-                Publisher = "Orvian",
+                Publisher = "Remotune",
                 Version = "0.1.0",
                 OrvianApiVersion = "0.1.0",
                 EntryAssembly = "Orvian.Plugins.Sample.dll",
