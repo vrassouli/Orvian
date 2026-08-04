@@ -43,6 +43,12 @@ A command request contains:
 
 Plugins do not choose host credentials, transport sessions, raw shell escaping, audit identifiers, or sudo password handling.
 
+Sensitive standard input is reserved for core execution services. A plugin
+cannot place stdin on its initial `CommandRequest`; the privilege preparer may
+attach a disposable character buffer only after validation, permission checks,
+and the audit-start write. The transport clears encoded byte buffers and the
+executor disposes the prepared input in a `finally` path.
+
 ## Processing sequence
 
 1. Validate required fields and operation state.
@@ -51,18 +57,24 @@ Plugins do not choose host credentials, transport sessions, raw shell escaping, 
 4. Verify selected host and connection state.
 5. Validate executable and argument constraints.
 6. Determine risk, confirmation, and privilege policy.
-7. Acquire a resource lock when required.
-8. Create and persist the audit start record.
-9. Resolve a privilege provider without revealing credentials to the plugin.
-10. Build a transport-safe invocation.
-11. Execute with timeout and cancellation.
-12. Capture bounded output and truncation metadata.
-13. Classify transport, exit, cancellation, timeout, and privilege outcomes.
-14. Persist audit completion in a finally-style path.
-15. Return a structured result to the caller.
-16. Release resource lock and connection lease.
+7. Resolve the authenticated remote user from the core-owned host profile.
+8. Create and persist the operation audit start record.
+9. Obtain required core-owned confirmation.
+10. Acquire a resource lock when required.
+11. Create and persist each command audit start record.
+12. Resolve a privilege provider without revealing credentials to the plugin.
+13. Build a transport-safe invocation.
+14. Execute with timeout and cancellation.
+15. Capture bounded output and truncation metadata.
+16. Classify transport, exit, cancellation, timeout, and privilege outcomes.
+17. Persist command and operation audit completion in finally-style paths.
+18. Return a structured result to the caller.
+19. Release resource lock and connection lease.
 
 No transport call may happen before the audit-start attempt and policy validation.
+If the core cannot resolve a valid authenticated remote username, operation and
+command execution fail closed before audit start and transport. Plugins do not
+supply or override this identity.
 
 ## Argument safety
 

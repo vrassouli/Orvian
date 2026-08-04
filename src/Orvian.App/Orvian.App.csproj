@@ -1,0 +1,132 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Orvian</AssemblyName>
+    <RootNamespace>Orvian.App</RootNamespace>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Application/Orvian.Application.csproj" />
+    <ProjectReference Include="../Orvian.Auditing/Orvian.Auditing.csproj" />
+    <ProjectReference Include="../Orvian.Connections/Orvian.Connections.csproj" />
+    <ProjectReference Include="../Orvian.Discovery/Orvian.Discovery.csproj" />
+    <ProjectReference Include="../Orvian.Diagnostics/Orvian.Diagnostics.csproj" />
+    <ProjectReference Include="../Orvian.Shell/Orvian.Shell.csproj" />
+    <ProjectReference Include="../Orvian.Persistence/Orvian.Persistence.csproj" />
+    <ProjectReference Include="../Orvian.PluginHost/Orvian.PluginHost.csproj" />
+    <ProjectReference Include="../Orvian.Security/Orvian.Security.csproj" />
+    <ProjectReference Include="../Orvian.Ssh/Orvian.Ssh.csproj" />
+  </ItemGroup>
+  <Target Name="BuildFirstPartyPlugins" BeforeTargets="CopyFirstPartyPluginsForBuild">
+    <MSBuild
+      Projects="../../plugins/Orvian.Plugins.HostOverview/Orvian.Plugins.HostOverview.csproj;../../plugins/Orvian.Plugins.DateTime/Orvian.Plugins.DateTime.csproj;../../plugins/Orvian.Plugins.NetworkSettings/Orvian.Plugins.NetworkSettings.csproj;../../plugins/Orvian.Plugins.Services/Orvian.Plugins.Services.csproj;../../plugins/Orvian.Plugins.PackageInfo/Orvian.Plugins.PackageInfo.csproj;../../plugins/Orvian.Plugins.UsersGroups/Orvian.Plugins.UsersGroups.csproj;../../plugins/Orvian.Plugins.Docker/Orvian.Plugins.Docker.csproj;../../plugins/Orvian.Plugins.FileTransfer/Orvian.Plugins.FileTransfer.csproj"
+      Targets="Build"
+      Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework)"
+      RemoveProperties="RuntimeIdentifier;SelfContained;PublishSingleFile" />
+  </Target>
+  <Target Name="CopyFirstPartyPluginsForBuild" AfterTargets="Build">
+    <ItemGroup>
+      <HostOverviewPluginFiles Include="../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.HostOverview.dll" />
+      <HostOverviewPluginFiles Include="../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <HostOverviewPluginFiles Include="../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.HostOverview.pdb" Condition="Exists('../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.HostOverview.pdb')" />
+      <DateTimePluginFiles Include="../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.DateTime.dll" />
+      <DateTimePluginFiles Include="../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <NetworkSettingsPluginFiles Include="../../plugins/Orvian.Plugins.NetworkSettings/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.NetworkSettings.dll" />
+      <NetworkSettingsPluginFiles Include="../../plugins/Orvian.Plugins.NetworkSettings/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <DateTimePluginFiles Include="../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.DateTime.pdb" Condition="Exists('../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.DateTime.pdb')" />
+      <ServicesPluginFiles Include="../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Services.dll" />
+      <ServicesPluginFiles Include="../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <ServicesPluginFiles Include="../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Services.pdb" Condition="Exists('../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Services.pdb')" />
+      <PackageInfoPluginFiles Include="../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.PackageInfo.dll" />
+      <PackageInfoPluginFiles Include="../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PackageInfoPluginFiles Include="../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.PackageInfo.pdb" Condition="Exists('../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.PackageInfo.pdb')" />
+      <UsersGroupsPluginFiles Include="../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.UsersGroups.dll" />
+      <UsersGroupsPluginFiles Include="../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <UsersGroupsPluginFiles Include="../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.UsersGroups.pdb" Condition="Exists('../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.UsersGroups.pdb')" />
+      <DockerPluginFiles Include="../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Docker.dll" />
+      <DockerPluginFiles Include="../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <DockerPluginFiles Include="../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Docker.pdb" Condition="Exists('../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Docker.pdb')" />
+      <FileTransferPluginFiles Include="../../plugins/Orvian.Plugins.FileTransfer/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.FileTransfer.dll" />
+      <FileTransferPluginFiles Include="../../plugins/Orvian.Plugins.FileTransfer/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(HostOverviewPluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/host-overview"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(DateTimePluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/datetime"
+      SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(NetworkSettingsPluginFiles)" DestinationFolder="$(TargetDir)plugins/network-settings" SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(ServicesPluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/services"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PackageInfoPluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/package-info"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(UsersGroupsPluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/users-groups"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(DockerPluginFiles)"
+      DestinationFolder="$(TargetDir)plugins/docker"
+      SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(FileTransferPluginFiles)" DestinationFolder="$(TargetDir)plugins/file-transfer" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="CopyFirstPartyPluginsForPublish" AfterTargets="Publish">
+    <ItemGroup>
+      <PublishedHostOverviewPluginFiles Include="../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.HostOverview.dll" />
+      <PublishedHostOverviewPluginFiles Include="../../plugins/Orvian.Plugins.HostOverview/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedDateTimePluginFiles Include="../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.DateTime.dll" />
+      <PublishedDateTimePluginFiles Include="../../plugins/Orvian.Plugins.DateTime/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedNetworkSettingsPluginFiles Include="../../plugins/Orvian.Plugins.NetworkSettings/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.NetworkSettings.dll" />
+      <PublishedNetworkSettingsPluginFiles Include="../../plugins/Orvian.Plugins.NetworkSettings/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedServicesPluginFiles Include="../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Services.dll" />
+      <PublishedServicesPluginFiles Include="../../plugins/Orvian.Plugins.Services/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedPackageInfoPluginFiles Include="../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.PackageInfo.dll" />
+      <PublishedPackageInfoPluginFiles Include="../../plugins/Orvian.Plugins.PackageInfo/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedUsersGroupsPluginFiles Include="../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.UsersGroups.dll" />
+      <PublishedUsersGroupsPluginFiles Include="../../plugins/Orvian.Plugins.UsersGroups/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedDockerPluginFiles Include="../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.Docker.dll" />
+      <PublishedDockerPluginFiles Include="../../plugins/Orvian.Plugins.Docker/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+      <PublishedFileTransferPluginFiles Include="../../plugins/Orvian.Plugins.FileTransfer/bin/$(Configuration)/$(TargetFramework)/Orvian.Plugins.FileTransfer.dll" />
+      <PublishedFileTransferPluginFiles Include="../../plugins/Orvian.Plugins.FileTransfer/bin/$(Configuration)/$(TargetFramework)/orvian.plugin.json" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(PublishedHostOverviewPluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/host-overview"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PublishedDateTimePluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/datetime"
+      SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(PublishedNetworkSettingsPluginFiles)" DestinationFolder="$(PublishDir)plugins/network-settings" SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PublishedServicesPluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/services"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PublishedPackageInfoPluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/package-info"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PublishedUsersGroupsPluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/users-groups"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="@(PublishedDockerPluginFiles)"
+      DestinationFolder="$(PublishDir)plugins/docker"
+      SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(PublishedFileTransferPluginFiles)" DestinationFolder="$(PublishDir)plugins/file-transfer" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

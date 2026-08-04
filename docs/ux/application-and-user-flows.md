@@ -13,6 +13,13 @@ The main window contains:
 
 The shell must work with no hosts, disconnected hosts, partially discovered hosts, unsupported features, and plugin failures.
 
+The host search field accepts ordinary text plus composable structured filters:
+`tag:value`, `os:linux`, `capability:init.systemd`, `state:ready`, and
+`enabled:true|false`. Repeating tag or capability filters requires all supplied
+values. OS and capability filters use only the latest persisted discovery
+snapshot; connection state uses the live application snapshot. Invalid filter
+values show a safe actionable message and do not issue an unbounded query.
+
 ## First-run flow
 
 1. Show a concise product introduction and local-first/security expectations.
@@ -32,12 +39,43 @@ Fields:
 - Password or private-key selection through secure controls.
 - Remember credential choice when backend is available.
 - Optional tags and notes.
+- Connection timeout from 1 to 120 seconds.
+- Additional transient network retry attempts from 0 to 5.
 
 Validation is inline and does not erase entered data. `Test connection` uses the same verification/authentication services but does not silently persist trust or secrets without explicit choices.
+
+If the native secure-store backend is unavailable, the remember control is
+disabled and the form explains that the entered credential lasts only for the
+current application session. The user can still create and connect to the host;
+no plaintext or substitute persistent store is created.
+
+Host inventory actions remain available for disabled profiles. Disabling a host
+disconnects it before committing the disabled state and clears SSH and privilege
+credentials held only for the current session. Re-enabling does not reconnect
+automatically. Editing supports tags and notes. Duplicating creates a new stable
+profile identity and copies non-secret profile fields only; credential
+references, host-key trust, discovery snapshots, and session credentials are
+never inherited.
+
+Connection preferences are editable per host and use the same domain validation
+as persisted profiles. Editing without changing them preserves the current
+values, and duplication copies these non-secret preferences. “Additional retry
+attempts” is labeled explicitly so zero means one initial attempt and no retry.
+When a remembered credential exists, editing states that fact without showing
+its value and offers explicit keep, replace, or remove behavior. A user may
+remove the remembered credential while supplying a session-only replacement;
+leaving both credential actions unchecked preserves the existing secure-store
+reference.
 
 ## Connection flow
 
 Connection progress uses meaningful stages: resolving, connecting, verifying identity, authenticating, and discovering. The user can cancel.
+
+While establishment is active, the host’s Connect button becomes Cancel instead
+of starting or queueing another connection. Cancellation propagates through
+DNS/SSH transport and any pending retry delay, produces the non-error
+`Cancelled` state, and restores the Connect action. Closing the main window
+also requests cancellation of the active establishment attempt.
 
 Unknown host key dialog displays:
 
@@ -51,6 +89,12 @@ Changed host key dialog is visually severe, defaults to cancel, shows previous a
 
 Authentication errors preserve the profile and offer retry/edit options. Network and identity errors are distinct.
 
+Transient network establishment failures may retry according to the profile's
+bounded reconnect preference. Authentication and host-identity outcomes never
+retry automatically. Cancellation stops both an active attempt and any pending
+retry delay. If the budget is exhausted, the error states the total number of
+attempts; there is no hidden or infinite reconnect loop.
+
 ## Host overview
 
 Show:
@@ -61,7 +105,8 @@ Show:
 - Discovery freshness and partial-failure indicator.
 - Available privilege provider.
 - Capability summary and active provider explanations.
-- Actions: connect/disconnect, refresh discovery, edit host, view activity.
+- Actions: connect/disconnect, refresh discovery, enable/disable, edit,
+  duplicate, delete, and view activity.
 
 Cached information shown while disconnected is clearly marked stale.
 
@@ -80,6 +125,13 @@ Every feature page supports common states:
 - Ready.
 
 Feature pages do not execute mutations on selection. Mutations begin only from explicit actions.
+
+The Date & Time feature presents timezone and manual date/time changes as
+separate tabs rather than a mutation selector. Manual date/time input uses a
+calendar-backed date picker and a time picker when the desktop toolkit provides
+them. The selected values are serialized to the canonical remote-local format
+`YYYY-MM-DD HH:mm:ss`; both actions remain privileged, confirmed, audited, and
+refresh the displayed state after success.
 
 ## Mutation flow
 
@@ -105,12 +157,40 @@ Audit filters:
 - Invocation source.
 - Status.
 - Privilege/risk.
+- Safe metadata search.
 
 Command details include executable, redacted arguments, exit code, timing, truncation state, output according to policy, and safe failure classification. Diagnostic discovery commands are hidden by default from the user-action view but available through a diagnostic filter.
 
+Operation and command rows show the authenticated remote username captured at
+execution time. The command detail view repeats it alongside host, connection,
+plugin, and command identity; it is not inferred later from a possibly edited
+display label.
+
+The MVP Activity window implements host, plugin, start-date range, invocation
+source, status, privilege, risk, and bounded safe-metadata search. Search
+requires every whitespace-separated term to match indexed operation, command,
+or host-trust metadata; it never searches retained command output or raw
+secrets. Operation intentions remain the default rows.
+Enabling discovery diagnostics exposes child command attempts; selecting a
+command enables its detail view. Retained output is labeled by the effective
+policy and is never fetched by list queries. Activity initially loads 50 rows;
+`Load more` advances independent operation, command, and host-trust cursors.
+Applying or clearing filters starts a fresh timestamp-bounded sequence, while a
+failed later page preserves rows already shown.
+
 ## Plugin management
 
-Show installed plugin name, publisher, version, state, compatibility, permissions, and errors. Enable/disable actions explain restart requirements. Do not imply third-party plugins are sandboxed.
+Show installed plugin name, publisher, version, state, compatibility,
+permissions, and safe errors. The MVP Settings window exposes appearance,
+locale-ready formatting, new-host connection defaults, output/audit retention,
+and the conservative clear-session-credentials-on-disconnect preference.
+Retention cleanup is an explicit bounded audited action; output retention cannot
+exceed metadata retention. Host-key verification and mutation auditing are
+shown as mandatory and cannot be disabled. The same window opens plugin
+inventory and supports immediate enable/disable for discovered compatible
+plugins; navigation contributions refresh after a successful change. A failed
+state change shows a safe generic error and retains the prior durable state. Do
+not imply third-party plugins are sandboxed.
 
 ## Error presentation
 
@@ -119,6 +199,13 @@ Show installed plugin name, publisher, version, state, compatibility, permission
 - Raw stack traces are not shown in normal UI.
 - Copy details uses the same redacted representation.
 - Persistent failures should not produce repeated notification spam.
+
+Settings provides an Application diagnostics viewer for bounded local
+structured events. It shows timestamp, severity, category, safe event code,
+mapped message, correlation ID, and sanitized properties. These events remain
+visually and structurally separate from remote command/operation audit data.
+Startup and plugin-load failures include the same correlation ID in their
+user-facing message and diagnostic record.
 
 ## Keyboard and accessibility
 

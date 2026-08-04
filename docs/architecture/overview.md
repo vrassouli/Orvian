@@ -19,6 +19,7 @@ Avalonia Shell
         -> Output Handling and Parsing
         -> Audit Completion
      -> Secret Store
+     -> Local Structured Diagnostics
 ```
 
 ## Architectural layers
@@ -67,6 +68,8 @@ The application composition root owns dependency injection and creates all infra
 - `OperationId`: one user/background intention, possibly containing several commands.
 - `CommandId`: one attempted remote command.
 - `AuditEventId`: persistence identity for an audit transition or record.
+- `DiagnosticEventId` and correlation ID: local diagnostic identity and the
+  safe link between a user-visible failure and related application events.
 
 Use typed identifiers or strongly constrained value objects where practical. Do not use display names as identities.
 
@@ -79,6 +82,8 @@ Use typed identifiers or strongly constrained value objects where practical. Do 
 - Plugin enabled state: plugin catalog repository.
 - Operation progress: operation coordinator; terminal result persisted to audit store.
 - UI navigation selection: shell state.
+- Local diagnostics: bounded rolling JSON-lines store, separate from command
+  audit persistence.
 
 ## Concurrency rules
 
@@ -110,7 +115,9 @@ Errors are classified, not flattened into strings:
 - Persistence failure.
 - Unexpected internal failure.
 
-User-facing messages are derived from structured failures. Raw exceptions remain in local diagnostic logs after redaction.
+User-facing messages are derived from structured failures. Raw exceptions are
+not serialized to local diagnostics; exception boundaries emit mapped event
+codes, safe messages, and correlation IDs.
 
 ## Extension model
 

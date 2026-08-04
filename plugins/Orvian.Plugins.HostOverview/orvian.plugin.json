@@ -1,0 +1,15 @@
+{
+  "id": "orvian.host-overview",
+  "name": "Host Overview",
+  "description": "Present trusted local host identity, connection, and discovery context.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.HostOverview.dll",
+  "entryType": "Orvian.Plugins.HostOverview.HostOverviewPlugin",
+  "permissions": [
+    "host.read",
+    "ui.navigation.contribute"
+  ],
+  "dependencies": []
+}

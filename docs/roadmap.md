@@ -30,45 +30,56 @@ Completed foundation:
 - [x] Initial tests and CI
 - [x] Product, architecture, security, UX, SDK, ADR, and agent specifications
 
-Remaining implementation:
+Completed implementation:
 
-- [ ] Avalonia application shell and composition root
-- [ ] UI contribution abstractions and registries
-- [ ] Plugin discovery/lifecycle prototype
-- [ ] In-memory operation/command pipeline and fake transport
-- [ ] In-memory audit sink and activity read model
-- [ ] Security primitives and redaction prototype
-- [ ] Architecture tests and expanded CI gates
+- [x] Avalonia application shell and composition root
+- [x] UI contribution abstractions and registries
+- [x] Plugin discovery/lifecycle prototype
+- [x] In-memory operation/command pipeline and fake transport
+- [x] In-memory audit sink and activity read model
+- [x] Security primitives and redaction prototype
+- [x] Architecture tests and expanded CI gates
 
 Detailed plan: `docs/backlog/sprint-0.md`.
 
 ## Sprint 1 — Host Profiles, Connection, and Discovery
 
-- SQLite persistence and migrations
-- Host inventory
-- Platform secret-store implementations
-- SSH.NET transport and connection state machine
-- Mandatory host-key verification
-- Password/private-key authentication
-- OS/fact/capability discovery
-- Host Overview plugin
+- [x] SQLite persistence and migrations
+- [x] Host inventory
+- [x] Platform secret-store implementations (Windows Credential Manager,
+  macOS Keychain, and Linux Secret Service)
+- [x] SSH.NET transport and connection state machine
+- [x] Mandatory host-key verification
+- [x] Password/private-key authentication
+- [x] OS/fact/capability discovery with Linux/systemd, Linux/OpenRC,
+  FreeBSD/rc.d, and macOS/launchd fixtures
+- [x] Host Overview plugin
 
 ## Sprint 2 — Secure Execution and Auditing
 
-- Production command pipeline
-- POSIX argument encoding
-- Timeout, cancellation, output bounds, and failure taxonomy
-- sudo/doas privilege workflow with session-only credentials
-- Persistent operation/command audit
-- Risk confirmations
-- Activity and audit UI
+- [x] Production command pipeline foundation
+- [x] POSIX argument encoding
+- [x] Timeout, cancellation, output bounds, and failure taxonomy
+- [x] sudo/doas privilege workflow with session-only credentials
+- [x] Persistent operation/command audit
+- [x] Risk confirmations
+- [x] Initial activity and audit UI
+- [x] Typed application settings, conservative recovery, and audited retention cleanup
+- [x] Bounded redaction-first local diagnostics and startup/crash correlation
+- [x] Core-resolved authenticated-user identity in durable audit records
+- [x] Bounded redaction-safe Activity search with retention-synchronized indexes
+- [x] Explicit remembered-credential retain/replace/remove lifecycle in host editing
+- [x] Clear session-only host credential flow when native secure storage is unavailable
+- [x] Deterministic merged Activity paging with bounded look-ahead and load-more UI
+- [x] Opt-in live Linux SSH/discovery/provider compatibility gate
+- [x] Real multi-line tool-version discovery compatibility
 
 ## Sprint 3 — First Operational Plugins
 
-- Date & Time
-- Services
-- Users & Groups (read-only)
-- Package Information (read-only)
+- Date & Time (systemd/POSIX reads and confirmed systemd timezone/date-time mutations complete)
+- Services (systemd inventory and confirmed start/stop/restart/enable/disable complete)
+- Users & Groups (getent-based read-only inventory complete)
+- Package Information (apt/rpm, pacman, zypper, apk, pkg, and brew reads complete)
 
 Detailed Sprint 1–3 plan: `docs/backlog/sprints-1-to-3.md`.
 
@@ -93,7 +104,7 @@ Until this milestone is explicitly activated, ordinary CI must not depend on pai
 These are not approved MVP scope:
 
 - Docker and Podman feature plugins
-- Firewall and network providers
+- Firewall providers and additional network providers, including rollback-safe Netplan mutation
 - Nginx and database administration
 - Additional providers for FreeBSD, macOS, OpenWrt, MikroTik, Proxmox, Cisco, and Juniper
 - Plugin packaging, signing, registry, marketplace, and updates

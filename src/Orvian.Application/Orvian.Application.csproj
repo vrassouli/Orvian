@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Auditing/Orvian.Auditing.csproj" />
+    <ProjectReference Include="../Orvian.Connections/Orvian.Connections.csproj" />
+    <ProjectReference Include="../Orvian.Core/Orvian.Core.csproj" />
+    <ProjectReference Include="../Orvian.Discovery/Orvian.Discovery.csproj" />
+    <ProjectReference Include="../Orvian.Plugin.Abstractions/Orvian.Plugin.Abstractions.csproj" />
+    <ProjectReference Include="../Orvian.Security/Orvian.Security.csproj" />
+    <ProjectReference Include="../Orvian.UI.Abstractions/Orvian.UI.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

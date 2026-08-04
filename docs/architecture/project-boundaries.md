@@ -14,6 +14,7 @@ src/
   Orvian.Connections
   Orvian.Ssh
   Orvian.Discovery
+  Orvian.Diagnostics
   Orvian.Security
   Orvian.Auditing
   Orvian.Persistence
@@ -76,12 +77,16 @@ Projects may be introduced incrementally. Do not create a project solely to hold
 
 - Host profile connection orchestration, state machine, connection leases, retry policy, and lifecycle events.
 - Depends on a transport abstraction; not on concrete feature plugins.
+- Owns platform-neutral remote-filesystem transport contracts and serializes their
+  access with the registered verified connection.
 
 ### Orvian.Ssh
 
 - SSH.NET adapter and SSH-specific transport implementation.
 - Host-key callbacks, authentication adapters, channels, command transport, cancellation, and low-level error mapping.
 - Never exposes SSH.NET types outside the project.
+- Implements SFTP behind the remote-filesystem transport contract; callers never
+  receive an SSH.NET client or session.
 
 ### Orvian.Discovery
 
@@ -96,6 +101,14 @@ Projects may be introduced incrementally. Do not create a project solely to hold
 
 - Operation/command audit model, persistence contracts, diagnostic classification, queries, retention, and output metadata.
 - Does not contain transport execution.
+
+### Orvian.Diagnostics
+
+- Redaction-first local structured application diagnostic contracts and bounded
+  rolling-file storage.
+- Remains separate from remote command and operation audit records.
+- Accepts only safe mapped events; it does not serialize raw exceptions,
+  command requests, authentication objects, or secret values.
 
 ### Orvian.Persistence
 

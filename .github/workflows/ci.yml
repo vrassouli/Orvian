@@ -27,5 +27,82 @@ jobs:
       - name: Build
         run: dotnet build Orvian.slnx --configuration Release --no-restore
 
+      - name: Verify formatting
+        run: dotnet format Orvian.slnx --verify-no-changes --no-restore
+
       - name: Test
         run: dotnet test Orvian.slnx --configuration Release --no-build
+
+      - name: Audit vulnerable dependencies
+        run: dotnet list Orvian.slnx package --vulnerable --include-transitive --no-restore
+
+  platform-security:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore security tests
+        run: dotnet restore tests/Orvian.Security.Tests/Orvian.Security.Tests.csproj
+
+      - name: Run platform security tests
+        run: >-
+          dotnet test tests/Orvian.Security.Tests/Orvian.Security.Tests.csproj
+          --configuration Release
+          --no-restore
+
+  publish-macos-preview:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        runtime: [osx-arm64, osx-x64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore runtime
+        run: |
+          dotnet restore plugins/Orvian.Plugins.HostOverview/Orvian.Plugins.HostOverview.csproj
+          dotnet restore plugins/Orvian.Plugins.DateTime/Orvian.Plugins.DateTime.csproj
+          dotnet restore plugins/Orvian.Plugins.Services/Orvian.Plugins.Services.csproj
+          dotnet restore plugins/Orvian.Plugins.PackageInfo/Orvian.Plugins.PackageInfo.csproj
+          dotnet restore plugins/Orvian.Plugins.UsersGroups/Orvian.Plugins.UsersGroups.csproj
+          dotnet restore src/Orvian.App/Orvian.App.csproj --runtime ${{ matrix.runtime }}
+
+      - name: Publish unsigned preview
+        run: >-
+          dotnet publish src/Orvian.App/Orvian.App.csproj
+          --configuration Release
+          --runtime ${{ matrix.runtime }}
+          --self-contained true
+          --no-restore
+          --output artifacts/Orvian-${{ matrix.runtime }}
+
+      - name: Package preview
+        run: |
+          eng/package-macos.sh \
+            artifacts/Orvian-${{ matrix.runtime }} \
+            artifacts/bundle-${{ matrix.runtime }}
+          ditto -c -k --keepParent
+          artifacts/bundle-${{ matrix.runtime }}/Orvian.app
+          artifacts/Orvian-0.1.0-${{ matrix.runtime }}-unsigned.zip
+
+      - name: Upload unsigned preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: Orvian-0.1.0-${{ matrix.runtime }}-unsigned
+          path: artifacts/Orvian-0.1.0-${{ matrix.runtime }}-unsigned.zip
+          if-no-files-found: error

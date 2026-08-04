@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Application/Orvian.Application.csproj" />
+    <ProjectReference Include="../Orvian.Plugin.Abstractions/Orvian.Plugin.Abstractions.csproj" />
+    <ProjectReference Include="../Orvian.UI.Abstractions/Orvian.UI.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

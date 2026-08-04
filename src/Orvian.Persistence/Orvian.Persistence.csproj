@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.10" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Auditing/Orvian.Auditing.csproj" />
+    <ProjectReference Include="../Orvian.Application/Orvian.Application.csproj" />
+    <ProjectReference Include="../Orvian.Core/Orvian.Core.csproj" />
+  </ItemGroup>
+</Project>

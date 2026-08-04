@@ -1,0 +1,15 @@
+{
+  "id": "orvian.package-info",
+  "name": "Package Information",
+  "description": "Inspect bounded installed-package information through capability-selected providers.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.PackageInfo.dll",
+  "entryType": "Orvian.Plugins.PackageInfo.PackageInfoPlugin",
+  "permissions": [
+    "ui.navigation.contribute",
+    "command.read.execute"
+  ],
+  "dependencies": []
+}

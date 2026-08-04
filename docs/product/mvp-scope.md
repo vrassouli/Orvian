@@ -54,6 +54,8 @@ Deliver a trustworthy desktop application that proves Orvian's complete vertical
 - Services: list, inspect, start, stop, restart, enable, and disable when supported; risky actions require confirmation.
 - Users & Groups: read-only listing and detail view for MVP. Mutation is deferred unless all security and portability requirements are completed early.
 - Package Information: identify package manager and show selected installed-package facts; full package installation/removal is deferred.
+- Network Settings: inspect IPv4/IPv6 addresses, prefixes, default gateways, and DNS; update inactive NetworkManager profiles or explicitly apply Netplan settings. Users update the saved host endpoint before reconnecting after an address change. See ADR 0004.
+- Docker: list images and containers; pull/delete images; start, stop, restart, and delete containers; inspect bounded recent container logs; and explicitly prune unused Docker data on hosts with the Docker CLI capability.
 
 ### Audit and diagnostics
 
@@ -80,7 +82,18 @@ Deliver a trustworthy desktop application that proves Orvian's complete vertical
 - Fleet-wide batch execution and orchestration.
 - Scheduling, runbooks, workflows, configuration drift, desired-state management, or unattended automation.
 - Full terminal emulator.
-- File transfer UI, SCP/SFTP browser, port forwarding, tunnels, or remote desktop.
+- Port forwarding, tunnels, or remote desktop.
+
+## Approved post-MVP feature: File Transfer
+
+File Transfer is approved as a first-party plugin using SFTP over the core-owned,
+host-key-verified SSH connection. It provides local/remote dual-pane browsing,
+multi-selection, upload, download, copy, cut/move, paste, rename, folder creation,
+delete, drag and drop, progress, cancellation, and download-then-open behavior.
+Remote filesystem objects never bypass core policy or receive direct plugin access
+to SSH.NET. Remote mutations fail closed when their audit-start record cannot be
+persisted. Overwrite and delete are explicitly confirmed, recursive traversal does
+not follow symbolic links, and partial completion is reported truthfully.
 - Full monitoring, alerting, dashboards, metrics retention, or log aggregation.
 - AI features. Future AI actions must use the same operation pipeline and are not allowed to bypass confirmation or policy.
 - Audit export to SIEM, syslog, or OpenTelemetry backends.

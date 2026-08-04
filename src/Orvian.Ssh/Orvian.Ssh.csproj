@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="SSH.NET" Version="2025.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Connections/Orvian.Connections.csproj" />
     <ProjectReference Include="../Orvian.Core/Orvian.Core.csproj" />
+    <ProjectReference Include="../Orvian.Security/Orvian.Security.csproj" />
   </ItemGroup>
 </Project>

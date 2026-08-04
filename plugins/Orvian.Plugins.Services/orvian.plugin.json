@@ -1,0 +1,17 @@
+{
+  "id": "orvian.services",
+  "name": "Services",
+  "description": "Inspect and manage remote system services through capability-selected providers.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.Services.dll",
+  "entryType": "Orvian.Plugins.Services.ServicesPlugin",
+  "permissions": [
+    "ui.navigation.contribute",
+    "command.read.execute",
+    "command.mutate.execute",
+    "privilege.elevated.request"
+  ],
+  "dependencies": []
+}

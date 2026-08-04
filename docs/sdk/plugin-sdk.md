@@ -50,6 +50,12 @@ A page contribution declares:
 - Sort/group metadata.
 
 Routes are plugin-scoped and cannot shadow core routes.
+Read-only feature pages use
+`INavigationRegistry.AddFeaturePage(..., featureId)`. The shell renders these
+entries from the contribution catalog and invokes the matching
+`IReadOnlyFeatureProvider`; it does not contain first-party plugin IDs or
+routes. `AddPage` remains available for pages that will supply their own
+approved view-model integration.
 
 ### Commands
 
@@ -91,9 +97,84 @@ A provider declares:
 
 Providers produce structured command requests through core services. They do not execute transport calls.
 
+### File transfer contribution
+
+The official File Transfer plugin is a declarative navigation contribution with
+`file.read` and `file.write` permissions. These permissions do not expose a file
+transport API to plugin code. The shell recognizes the stable `file-transfer`
+feature contract and invokes the core-owned transfer application service, which
+applies host connection, confirmation, audit, path, progress, cancellation, and
+partial-result policy. Third-party SFTP clients and direct session access are not
+part of the public SDK.
+
+The current read-provider contract is `IReadOnlyFeatureProvider`. Registration
+uses `IPluginBuilder.Features.Add`. A provider supplies:
+
+- stable feature/provider IDs and deterministic priority;
+- required semantic capabilities;
+- a `PluginReadRequest` containing one executable, structured arguments, and a
+  bounded timeout;
+- a defensive parser from bounded `PluginCommandOutput` to an immutable
+  `PluginFeatureReadModel`.
+
+The application selects the highest-priority compatible provider (provider ID
+is the stable tie-breaker), supplies plugin identity and declared permission to
+the core command pipeline, refuses truncated output before parsing, and converts
+provider exceptions to safe failures. Providers never receive an executor,
+connection, SSH session, audit sink, secret store, database, or service
+provider.
+
+Features built entirely from already-authorized local host metadata implement
+`ILocalHostFeatureProvider`. They require `host.read`, not command-execution
+permission. Core supplies an immutable `LocalHostFeatureContext` containing
+only display name, endpoint, connection state, trusted public host-key
+fingerprint, normalized discovery facts/capabilities, discovery freshness, and
+the core clock value used to render the model. The context deliberately omits
+username, authentication method, credential references, private-key paths,
+tags, notes, repositories, database access, sessions, transports, and secret
+services. Local providers return the same immutable read model and are selected
+by capability, priority, and provider ID without creating a synthetic remote
+command or audit entry.
+
+Features that require more than one independent read implement
+`IMultiCommandReadFeatureProvider`. They return between one and eight
+structured requests. Core assigns one operation identity, persists the
+operation aggregate, executes and audits each request in order, stops on the
+first failure, rejects any truncated child output, and only then supplies the
+complete bounded output sequence to the plugin parser.
+
+Parameterized user-initiated reads implement `IParameterizedReadFeatureProvider`.
+They declare stable action metadata and parameters, validate every supplied value,
+and return one bounded structured read request. Core selects them by capability,
+executes each refresh as an informational audited operation, and never routes them
+through mutation permission or confirmation policy. This supports bounded polling
+experiences such as container logs without introducing unbounded remote processes.
+
+Mutation providers implement `IMutationFeatureProvider` and register through
+the same feature registry. They declare stable feature/mutation/provider IDs,
+semantic capability requirements, parameter metadata, risk, and whether
+elevation is required. `CreateRequest` receives a keyed parameter dictionary
+and must validate every value before returning an executable plus structured
+arguments. Core rechecks capability compatibility, manifest permissions, risk
+consistency, connection identity, confirmation, privilege, audit availability,
+timeout, and output policy at execution time.
+
+The shell presents every compatible mutation descriptor returned for a feature;
+first-party feature routes and action IDs are not hardcoded into the shell.
+Mutation resource locking is conservatively scoped to the host and feature so
+conflicting actions cannot run concurrently even when they use different
+provider action IDs.
+
+Mutation providers may opt into bounded result display with `DisplaysOutput`.
+The shell shows at most 64 KiB of the already sanitized command standard output
+and does not perform the normal post-mutation discovery refresh for that action.
+This is intended for conservative compatibility shims such as a bounded Docker
+logs action until parameterized read actions are available; it does not weaken
+mutation permission, confirmation, audit, timeout, or output-limit enforcement.
+
 ## Runtime context
 
-A plugin runtime context may expose:
+A future richer plugin runtime context may expose:
 
 - Plugin identity/version.
 - Lifetime cancellation token.
@@ -136,7 +217,11 @@ Capabilities are lowercase dotted identifiers. General semantic capability prece
 - `init.systemd`
 - `time.read`
 - `time.timezone.write`
+- `time.datetime.write`
 - `privilege.sudo`
+- `container.docker`
+- `docker.read`
+- `docker.manage`
 
 Do not create distribution capabilities such as `ubuntu.service.manage` unless a truly distribution-specific semantic behavior cannot be represented through facts/provider matching.
 

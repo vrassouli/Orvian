@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../plugins/Orvian.Plugins.DateTime/Orvian.Plugins.DateTime.csproj" />
+    <ProjectReference Include="../../plugins/Orvian.Plugins.PackageInfo/Orvian.Plugins.PackageInfo.csproj" />
+    <ProjectReference Include="../../plugins/Orvian.Plugins.Services/Orvian.Plugins.Services.csproj" />
+    <ProjectReference Include="../../plugins/Orvian.Plugins.UsersGroups/Orvian.Plugins.UsersGroups.csproj" />
+    <ProjectReference Include="../../src/Orvian.Discovery/Orvian.Discovery.csproj" />
+    <ProjectReference Include="../../src/Orvian.Plugin.Abstractions/Orvian.Plugin.Abstractions.csproj" />
+    <ProjectReference Include="../../src/Orvian.Ssh/Orvian.Ssh.csproj" />
+  </ItemGroup>
+</Project>

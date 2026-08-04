@@ -1,0 +1,15 @@
+{
+  "id": "orvian.users-groups",
+  "name": "Users & Groups",
+  "description": "Inspect remote user and group identity metadata without reading password hashes.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.UsersGroups.dll",
+  "entryType": "Orvian.Plugins.UsersGroups.UsersGroupsPlugin",
+  "permissions": [
+    "ui.navigation.contribute",
+    "command.read.execute"
+  ],
+  "dependencies": []
+}

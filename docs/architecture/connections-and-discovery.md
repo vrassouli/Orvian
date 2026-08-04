@@ -16,6 +16,9 @@ A host profile is local configuration, not proof of remote identity. It contains
 - Created/updated timestamps.
 
 Profiles never contain plaintext passwords, private-key contents, or passphrases.
+The MVP host editor exposes the validated connection timeout and maximum
+additional network retry count rather than silently fixing every profile to the
+defaults.
 
 ## Connection state machine
 
@@ -40,7 +43,21 @@ Terminal/error transitions include `Cancelled`, `NetworkFailed`, `IdentityReject
 - Changed key: block by default and show old/new fingerprints with a strong warning. Replacement requires explicit user action and must be audited locally.
 - Plugin code cannot accept or replace a host key.
 - A global insecure ignore option is prohibited.
-- Hostname and address changes require re-evaluation of stored identity association.
+- Hostname, port, and resolved-address changes require re-evaluation of the
+  stored identity association even when the key fingerprint is unchanged.
+
+Migration 9 adds the last explicitly trusted resolved IP address to each
+host-key record. Legacy records have no address and therefore require one
+explicit revalidation on their next connection; they are not silently treated
+as matching. Trust replacement stores the newly observed hostname, port,
+address, algorithm, and SHA-256 fingerprint as one association.
+
+Migration 10 adds immutable local host-trust audit events. First trust and
+explicit replacement persist the trusted identity and its event in one SQLite
+transaction; if either write fails, neither change commits and connection
+establishment stops before another transport attempt. Activity inspection shows
+these records as local security events. The event contains identity metadata and
+fingerprints, but no credentials, secret references, or transport details.
 
 ## Authentication
 
@@ -64,17 +81,41 @@ The connection manager:
 - Prevents plugins from holding transport objects.
 - Supports explicit disconnect and application shutdown cleanup.
 - Uses bounded retries only for safe connection-establishment phases and never loops indefinitely.
+- Enforces one establishment workflow per host; UI re-entry cancels the active
+  workflow rather than queueing another attempt behind the host lock.
+
+`MaximumReconnectAttempts` is the number of additional transport attempts after
+the initial attempt, with a validated range of zero through five. The MVP
+retries only `NetworkFailed` results during establishment, using bounded
+exponential delays of 250 ms through 2 seconds. The retry budget is shared
+across the complete establishment flow, including a second connection after an
+explicit host-key trust decision. Authentication failure, identity decisions,
+identity rejection, generic negotiation failure, and cancellation are never
+retried automatically. Cancellation during transport or backoff terminates the
+workflow before another attempt. Exhaustion reports the exact bounded attempt
+count in safe UI-visible failure text.
 
 ## Discovery plan
 
 Discovery consists of independent probes executed through `ICommandExecutor` with `InvocationSource.Discovery`. Probe failures are captured without aborting unrelated probes.
 
+Optional provider/tool probes distinguish an unavailable command from a failed
+discovery run. A clean non-zero result from an optional availability probe is
+recorded as `Unsupported`; malformed output, timeout, cancellation, audit
+failure, and unexpected execution failure remain real probe failures. An
+unsupported optional provider does not by itself make the snapshot partial.
+Availability/version probes accept bounded multi-line output because common
+tools such as `systemctl`, `sudo`, and `apt-get` report feature or module lines
+after their version header. They require non-whitespace content, reject NUL,
+and cap parser input at 64 KiB; single-value fact probes retain strict
+single-line parsing.
+
 Initial probes should determine when available:
 
 - `uname` kernel, OS, release, and architecture.
 - `/etc/os-release` facts.
-- FreeBSD version facts.
-- macOS `sw_vers` facts.
+- FreeBSD `freebsd-version` facts.
+- macOS `sw_vers` product name and version facts.
 - Current shell and POSIX shell availability.
 - Effective user ID and groups.
 - Availability/version of `sudo` and `doas`.
@@ -85,6 +126,14 @@ Initial probes should determine when available:
 - Basic system facts such as hostname and uptime.
 
 Probes must avoid mutation and interactive commands.
+
+The MVP implements these as independent bounded commands. FreeBSD rc.d
+detection accepts only canonical `/etc/rc.d/` or `/usr/local/etc/rc.d/`
+inventory paths before granting `init.rcd`; unexpected paths are a visible
+parse failure. Group output is single-line, bounded to 256 group names, and
+defensively validated. Missing optional platform tools are `Unsupported` and do
+not make a snapshot partial, while malformed or truncated output remains a real
+partial-discovery condition.
 
 ## Facts and capabilities
 
@@ -103,6 +152,7 @@ Capabilities are stable semantic identifiers derived from facts and successful p
 - `service.manage`
 - `time.read`
 - `time.timezone.write`
+- `time.datetime.write`
 
 Capability IDs are lowercase dotted identifiers. A capability may include optional version metadata in the registry but the identifier itself is version-independent.
 
@@ -123,7 +173,10 @@ The latest successful facts may be cached for disconnected display, but the UI m
 ## Refresh rules
 
 - Initial successful connection triggers discovery unless a product setting explicitly asks first.
-- Manual refresh is available.
+- Manual refresh is available while the connection is ready. It runs through
+  the same command/audit pipeline, preserves the previous cached snapshot on
+  failure, and restores a usable connection state after cancellation or
+  failure.
 - Material host-key or OS identity change invalidates previous discovery.
 - Reconnect may reuse recent display data while background refresh runs, but mutation remains blocked until required capabilities are confirmed.
 - Plugins can contribute probes through constrained metadata and command factories, not direct transport calls.

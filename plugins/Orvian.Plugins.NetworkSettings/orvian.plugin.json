@@ -1,0 +1,17 @@
+{
+  "id": "orvian.network-settings",
+  "name": "Network Settings",
+  "description": "Inspect and update IPv4 and IPv6 connection settings.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.NetworkSettings.dll",
+  "entryType": "Orvian.Plugins.NetworkSettings.NetworkSettingsPlugin",
+  "permissions": [
+    "ui.navigation.contribute",
+    "command.read.execute",
+    "command.mutate.execute",
+    "privilege.elevated.request"
+  ],
+  "dependencies": []
+}

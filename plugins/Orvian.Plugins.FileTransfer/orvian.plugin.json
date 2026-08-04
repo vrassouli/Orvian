@@ -1,0 +1,17 @@
+{
+  "id": "orvian.file-transfer",
+  "name": "File Transfer",
+  "description": "Browse and transfer files between this computer and a selected SSH host.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.FileTransfer.dll",
+  "entryType": "Orvian.Plugins.FileTransfer.FileTransferPlugin",
+  "permissions": [
+    "host.read",
+    "file.read",
+    "file.write",
+    "ui.navigation.contribute"
+  ],
+  "dependencies": []
+}

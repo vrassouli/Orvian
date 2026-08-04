@@ -1,16 +1,50 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Orvian.App/Orvian.App.csproj" />
+    <Project Path="src/Orvian.Application/Orvian.Application.csproj" />
+    <Project Path="src/Orvian.Connections/Orvian.Connections.csproj" />
+    <Project Path="src/Orvian.Shell/Orvian.Shell.csproj" />
+    <Project Path="src/Orvian.UI.Abstractions/Orvian.UI.Abstractions.csproj" />
     <Project Path="src/Orvian.Core/Orvian.Core.csproj" />
     <Project Path="src/Orvian.Plugin.Abstractions/Orvian.Plugin.Abstractions.csproj" />
+    <Project Path="src/Orvian.PluginHost/Orvian.PluginHost.csproj" />
+    <Project Path="src/Orvian.Persistence/Orvian.Persistence.csproj" />
     <Project Path="src/Orvian.Auditing/Orvian.Auditing.csproj" />
     <Project Path="src/Orvian.Discovery/Orvian.Discovery.csproj" />
+    <Project Path="src/Orvian.Diagnostics/Orvian.Diagnostics.csproj" />
     <Project Path="src/Orvian.Security/Orvian.Security.csproj" />
     <Project Path="src/Orvian.Ssh/Orvian.Ssh.csproj" />
   </Folder>
   <Folder Name="/plugins/">
+    <Project Path="plugins/Orvian.Plugins.FileTransfer/Orvian.Plugins.FileTransfer.csproj" />
+    <Project Path="plugins/Orvian.Plugins.HostOverview/Orvian.Plugins.HostOverview.csproj" />
+    <Project Path="plugins/Orvian.Plugins.NetworkSettings/Orvian.Plugins.NetworkSettings.csproj" />
+    <Project Path="plugins/Orvian.Plugins.DateTime/Orvian.Plugins.DateTime.csproj" />
+    <Project Path="plugins/Orvian.Plugins.Docker/Orvian.Plugins.Docker.csproj" />
+    <Project Path="plugins/Orvian.Plugins.Services/Orvian.Plugins.Services.csproj" />
+    <Project Path="plugins/Orvian.Plugins.PackageInfo/Orvian.Plugins.PackageInfo.csproj" />
+    <Project Path="plugins/Orvian.Plugins.UsersGroups/Orvian.Plugins.UsersGroups.csproj" />
     <Project Path="plugins/Orvian.Plugins.Sample/Orvian.Plugins.Sample.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Orvian.Architecture.Tests/Orvian.Architecture.Tests.csproj" />
+    <Project Path="tests/Orvian.Auditing.Tests/Orvian.Auditing.Tests.csproj" />
     <Project Path="tests/Orvian.Core.Tests/Orvian.Core.Tests.csproj" />
+    <Project Path="tests/Orvian.PluginHost.Tests/Orvian.PluginHost.Tests.csproj" />
+    <Project Path="tests/Orvian.Persistence.Tests/Orvian.Persistence.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.DateTime.Tests/Orvian.Plugins.DateTime.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.Docker.Tests/Orvian.Plugins.Docker.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.HostOverview.Tests/Orvian.Plugins.HostOverview.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.NetworkSettings.Tests/Orvian.Plugins.NetworkSettings.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.Services.Tests/Orvian.Plugins.Services.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.PackageInfo.Tests/Orvian.Plugins.PackageInfo.Tests.csproj" />
+    <Project Path="tests/Orvian.Plugins.UsersGroups.Tests/Orvian.Plugins.UsersGroups.Tests.csproj" />
+    <Project Path="tests/Orvian.Security.Tests/Orvian.Security.Tests.csproj" />
+    <Project Path="tests/Orvian.Ssh.Tests/Orvian.Ssh.Tests.csproj" />
+    <Project Path="tests/Orvian.Application.Tests/Orvian.Application.Tests.csproj" />
+    <Project Path="tests/Orvian.Connections.Tests/Orvian.Connections.Tests.csproj" />
+    <Project Path="tests/Orvian.Discovery.Tests/Orvian.Discovery.Tests.csproj" />
+    <Project Path="tests/Orvian.Diagnostics.Tests/Orvian.Diagnostics.Tests.csproj" />
+    <Project Path="tests/Orvian.Shell.Tests/Orvian.Shell.Tests.csproj" />
   </Folder>
 </Solution>

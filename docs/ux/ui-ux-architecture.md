@@ -131,7 +131,25 @@ Examples include:
 - Date & Time with system time, timezone, synchronization toggle, and NTP server.
 - Services with searchable service rows, status, enablement, and contextual start, stop, or restart actions.
 - Users & Groups with list and detail navigation.
-- Docker with grouped overview and dedicated container, image, volume, network, and compose pages.
+- Docker with image and container tabs, resource rows, contextual lifecycle/log/delete
+  actions, an image-pull input, and a visually separate destructive maintenance area.
+  Volume, network, and Compose management remain future extensions.
+- Container log actions navigate to a container-scoped log page. The MVP uses
+  three-second bounded polling through informational audited read operations and
+  provides pause, resume, manual refresh, clear, and back controls. Polling stops
+  when the page detaches; displayed log text is capped at 128 KiB.
+- File Transfer uses equal local/remote panes with path navigation, multi-selection,
+  pointer drag and drop, explicit transfer controls, item and aggregate progress,
+  cancellation, and a textual status that does not rely on color. Destructive or
+  overwrite-capable remote actions use the shared confirmation surface.
+  The local pane restores the last valid directory globally; the remote pane restores
+  the last valid directory separately for each host and falls back to `/` when that
+  location is no longer available.
+  A remote file opened locally becomes a watched working copy. When its timestamp or
+  size changes, File Transfer offers the normal audited upload/overwrite confirmation
+  for the original host and remote directory. Leaving the page or closing Orvian asks
+  whether to delete or keep downloaded working copies; cancelling keeps the user on
+  the page or prevents window closure.
 
 ## Progressive disclosure
 

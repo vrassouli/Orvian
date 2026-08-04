@@ -92,6 +92,13 @@ Active remote mutations are not abruptly abandoned. Core operation ownership con
 
 Enabling repeats compatibility validation and lifecycle initialization.
 
+The MVP persists the desired enabled state in SQLite. Explicit disable is
+durable across restarts, while process shutdown only unloads runtime state.
+Re-enabling a discovered plugin repeats assembly loading, runtime identity
+validation, registration, activation, and durable-state recording. A failure to
+record enabled state rolls registration back so an apparently disabled plugin
+is not left active.
+
 ## Update
 
 MVP supports manual replacement while disabled or application closed. Automatic online update is excluded. Update must preserve plugin-scoped data unless migration explicitly succeeds. Permission additions are surfaced and require explicit approval in future installation UI.
@@ -102,6 +109,17 @@ MVP supports manual replacement while disabled or application closed. Automatic 
 - A plugin cannot depend on a concrete first-party feature merely to reuse internal code; shared public abstractions belong in an SDK package.
 - Missing optional dependencies disable only related contributions when designed that way.
 - Missing required dependencies make the plugin incompatible.
+
+Startup resolves the complete discovered dependency graph before loading any
+assembly. Required plugins load before their dependents regardless of directory
+order. Missing, incompatible, quarantined, disabled, or faulted prerequisites
+leave the dependent `Incompatible` and unregistered. Every member of a cycle is
+also incompatible and contributes nothing.
+
+Runtime enable repeats the active-prerequisite check. An active prerequisite
+cannot be disabled until its active dependents are disabled; the management UI
+names those dependents rather than silently cascading a durable preference
+change.
 
 ## Fault containment
 

@@ -18,6 +18,26 @@ Use controllable fake transport, fake secret store, temporary SQLite database, f
 
 Use disposable containers/VMs or explicitly managed test hosts for supported providers. Never use production hosts or real credentials in CI. Test matrices should eventually include representative systemd Linux, OpenRC Linux, FreeBSD, and macOS where runner access permits.
 
+`Orvian.Ssh.Tests` contains an opt-in `LiveSsh` test that verifies first-seen
+host-key refusal, an exact expected fingerprint, password authentication,
+structured command execution, standard discovery parsing, and the Date & Time,
+Services, Users & Groups, and apt package providers against a disposable Linux
+host. It is skipped unless all required variables are present:
+
+```text
+ORVIAN_LIVE_SSH_HOST
+ORVIAN_LIVE_SSH_USER
+ORVIAN_LIVE_SSH_PASSWORD
+ORVIAN_LIVE_SSH_FINGERPRINT
+ORVIAN_LIVE_SSH_PORT (optional; default 22)
+```
+
+Run it with `dotnet test --filter Category=LiveSsh`. Supply the password through
+a non-echoing environment setup or CI secret facility. Never place live values
+in a command argument, repository file, test output, shell history, or normal
+CI configuration. The test performs read-only commands and requires the
+expected SHA-256 fingerprint before the authenticated connection is accepted.
+
 ### UI tests
 
 Test shell/view-model behavior, navigation contributions, common page states, focus/keyboard paths, dialogs, and error rendering. Keep core behavior outside view code so most tests remain fast.
@@ -40,7 +60,8 @@ Plugin work includes manifest, compatibility, registration rollback, disposal, p
 
 ## Test conventions
 
-- Tests are deterministic and do not depend on internet access.
+- Default tests are deterministic and do not depend on internet access;
+  explicitly categorized live compatibility tests are skipped by default.
 - No sleeps for synchronization when a controllable clock/event can be used.
 - No real credentials or identifying infrastructure data in fixtures.
 - Test names describe behavior and condition.

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <InternalsVisibleTo Include="Orvian.Shell.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Diagnostics/Orvian.Diagnostics.csproj" />
+    <PackageReference Include="Avalonia" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orvian.Application/Orvian.Application.csproj" />
+    <ProjectReference Include="../Orvian.UI.Abstractions/Orvian.UI.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

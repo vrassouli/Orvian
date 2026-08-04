@@ -29,6 +29,12 @@ Recommended development artifacts:
 - `Orvian-<version>-macos-arm64.zip`
 - `Orvian-<version>-macos-x64.zip`, when Intel support is being tested
 
+Current CI publishes self-contained, single-file, unsigned `Orvian.app` preview
+archives for `osx-arm64` and `osx-x64`. These bundles are publish smoke tests and
+internal test inputs. They receive only a local ad-hoc signature so the bundle
+structure can be validated; they are not Developer ID signed or notarized public
+installers.
+
 A DMG may be generated for layout testing, but an unsigned DMG is not a production-quality public installer.
 
 ## Paid Apple membership

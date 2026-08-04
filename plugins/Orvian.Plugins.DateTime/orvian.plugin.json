@@ -1,0 +1,17 @@
+{
+  "id": "orvian.datetime",
+  "name": "Date & Time",
+  "description": "Inspect remote date, time, timezone, and synchronization state.",
+  "publisher": "Orvian",
+  "version": "0.1.0",
+  "orvianApiVersion": "0.1.0",
+  "entryAssembly": "Orvian.Plugins.DateTime.dll",
+  "entryType": "Orvian.Plugins.DateTime.DateTimePlugin",
+  "permissions": [
+    "ui.navigation.contribute",
+    "command.read.execute",
+    "command.mutate.execute",
+    "privilege.elevated.request"
+  ],
+  "dependencies": []
+}
